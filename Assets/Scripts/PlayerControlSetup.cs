@@ -29,7 +29,7 @@ public class PlayerControlSetup : MonoBehaviour{
         animator = gameObject.GetComponentsInChildren<Animator>()[0];
         animOn = true;
     }
-
+    aiwlkdfnkwjadsmn
     void Update()
     {
         if (gameObject.transform.position.y - prevy > 0.05)
