@@ -1,0 +1,300 @@
+fileFormatVersion: 2
+guid: f5125b2ac9c41bd4c851176ca4394dbd
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: head
+    21300002: armb
+    21300004: armf
+    21300006: bod
+    21300008: legb
+    21300010: legF
+    21300012: Shoulder
+    21300014: hair
+  externalObjects: {}
+  serializedVersion: 7
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: head
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 113
+        width: 175
+        height: 143
+      alignment: 9
+      pivot: {x: 0.45617357, y: 0.058331203}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64.5, y: 65.5}
+        - {x: -73.5, y: 37.5}
+        - {x: -87.5, y: -12.5}
+        - {x: -87.5, y: -39.5}
+        - {x: -82.5, y: -40.5}
+        - {x: -36.5, y: -70.5}
+        - {x: -26.5, y: -71.5}
+        - {x: 12.5, y: -65.5}
+        - {x: 41.5, y: -30.5}
+        - {x: 85.5, y: 29.5}
+        - {x: 85.5, y: 60.5}
+        - {x: 84.5, y: 65.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15662e1c455f4a34292dbc001c2ea77f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armb
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 135
+        width: 29
+        height: 44
+      alignment: 9
+      pivot: {x: 0.7525335, y: 0.71304667}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85c93928ddfd3e644954a9dea8ccca51
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: armf
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 133
+        width: 33
+        height: 45
+      alignment: 9
+      pivot: {x: 0.15379795, y: 0.71482205}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1178c77a05c01284f955dd8f42cfa633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bod
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 71
+        width: 63
+        height: 59
+      alignment: 9
+      pivot: {x: 0.58436877, y: 0.30711183}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 701b7102cc7e8a94f9914883a45723c9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: legb
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 11
+        width: 41
+        height: 52
+      alignment: 9
+      pivot: {x: 0.68576646, y: 0.7647723}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d9b380f46d391a4da84531a9bd291d8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: legF
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 14
+        width: 36
+        height: 51
+      alignment: 9
+      pivot: {x: 0.21504678, y: 0.77517843}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d188afb683a76b4e8273b770872cf99
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shoulder
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 189
+        width: 40
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2166ef5b766edd442a1a98f0989d0587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hair
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 98
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19, y: 66.5}
+        - {x: 14, y: 53.5}
+        - {x: -14, y: 21.5}
+        - {x: -48, y: 4.5}
+        - {x: -49, y: -26.5}
+        - {x: -18, y: -71.5}
+        - {x: 37, y: -71.5}
+        - {x: 42, y: 35.5}
+        - {x: 42, y: 41.5}
+        - {x: 24, y: 71.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f315dc8e5972ae418e80fee65fdcffb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f8a6a6a0bd1241845934b39a337890aa
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
