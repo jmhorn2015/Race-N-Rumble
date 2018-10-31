@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlSetup : MonoBehaviour{
+public class PlayerControlSetup : MonoBehaviour
+{
     bool animOn;
     bool isRun;
     bool isCrouch;
@@ -29,7 +30,7 @@ public class PlayerControlSetup : MonoBehaviour{
         animator = gameObject.GetComponentsInChildren<Animator>()[0];
         animOn = true;
     }
-    aiwlkdfnkwjadsmn
+
     void Update()
     {
         if (gameObject.transform.position.y - prevy > 0.05)
@@ -41,25 +42,25 @@ public class PlayerControlSetup : MonoBehaviour{
             isJump = false;
         }
         isRun = false;
-        if (InputManager.MainHorizontal(PlayerControlDelegator.playernum) > 0);
+        if (InputManager.MainHorizontal(PlayerControlDelegator.playernum) > 0) ;
         {
             moveToLeft();
             isRun = true;
         }
-        if (InputManager.MainHorizontal(PlayerControlDelegator.playernum) < 0);
+        if (InputManager.MainHorizontal(PlayerControlDelegator.playernum) < 0) ;
         {
             moveToRight();
             isRun = true;
         }
-        if(InputManager.Jump(PlayerControlDelegator.playernum))
+        if (InputManager.Jump(PlayerControlDelegator.playernum))
         {
             playerJump();
         }
-        if(InputManager.Power(PlayerControlDelegator.playernum))
+        if (InputManager.Power(PlayerControlDelegator.playernum))
         {
             usePowerUp();
         }
-        if(InputManager.Croutch(PlayerControlDelegator.playernum))
+        if (InputManager.Croutch(PlayerControlDelegator.playernum))
         {
             useAttack();
             isCrouch = true;
@@ -77,7 +78,7 @@ public class PlayerControlSetup : MonoBehaviour{
         prevy = gameObject.transform.position.y;
     }
 
-	virtual public void moveToLeft()
+    virtual public void moveToLeft()
     {
         Vector2 position = this.transform.position;
         position.x -= base_speed;
