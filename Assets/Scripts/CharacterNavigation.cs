@@ -85,7 +85,6 @@ public class CharacterNavigation : MonoBehaviour {
                 SaveState.Players.TrimExcess();
                 saveIndex = SaveState.Players.Capacity - 1;
                 isConfirm = true;
-                Debug.Log(SaveState.Players.Capacity + "\n" + SaveState.PlayerScore.Count);
             }
             else
             {

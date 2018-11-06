@@ -14,7 +14,7 @@ public class SaveState : MonoBehaviour
     public static List<string> MapList = new List<string>();
     public static List<PlayerState> Players = new List<PlayerState>();
     public static Dictionary<string, int> PlayerScore = new Dictionary<string, int>();
-    public static bool[] AvailChara = new bool[5];
+    public static bool[] AvailChara = new bool[12];
     public static int MoneyScore = 0;
     public static int MapCounter = 0;
     public static int maxCharaUnlocked = 1;
@@ -23,18 +23,18 @@ public class SaveState : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        AvailChara[1] = true;
         GameCntrl.LoadFile();
+        if(AvailChara.Length != 12)
+        {
+            AvailChara = new bool[12];
+        }
+        AvailChara[1] = true;
     }
 
     void OnDestroy()
     {
        GameCntrl.SavetoFile();
     }
-
-    //Getting player name and player scores
-
-    //Saving all Player State info of all players
     
     public static void PlayerSaveState(string PName, string PAttack, string PIconpath)
     {
@@ -103,7 +103,7 @@ class GameSaveData
     public Dictionary<string, int> PlayerScore = new Dictionary<string, int>();
     public int MoneyScore = 0;
     public int MapCounter = 0;
-    public bool[] AvailChara = new bool[5];
+    public bool[] AvailChara = new bool[12];
     public int maxCharaUnlocked = 1;
 
 }

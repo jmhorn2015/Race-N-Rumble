@@ -14,7 +14,7 @@ public class ScoreShow : MonoBehaviour {
         score += SaveState.DisplayScoreofPlayer();
         display = this.gameObject.GetComponent<Text>();
         display.text = score;
-        SaveState.MapList.Clear();
+        SaveState.MapList = new List<string>();
         SaveState.MapCounter = 0;
 	}
 }

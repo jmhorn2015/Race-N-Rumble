@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class PlayerControlDelegator : MonoBehaviour {
     public int PlayNum;
-    public static int playernum;
     // Use this for initialization
     void Start() {
-        playernum = PlayNum;
         string type = SaveState.Players[PlayNum - 1].Attack;
         if (type.CompareTo("Fighter") == 0) {
             gameObject.AddComponent<player_Fighter>();
@@ -30,5 +28,6 @@ public class PlayerControlDelegator : MonoBehaviour {
         {
                 Debug.Log("no type selected");
         }
-	}
+        gameObject.GetComponent<PlayerControlSetup>().AddPlayerNum(PlayNum);
+    }
 }

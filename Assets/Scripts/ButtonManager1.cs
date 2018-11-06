@@ -7,7 +7,6 @@ public class ButtonManager1 : MonoBehaviour {
     public static bool isContinue = false;
     public void NewGameBtn(string NewGameLevel)
     {
-        Debug.Log(isContinue + "\n" + SaveState.MapCounter + "\n" + SaveState.MapList.Capacity);
         if (isContinue & (SaveState.MapList.Capacity > 0 & SaveState.MapCounter>-1))
         {
             SceneManager.LoadScene(SaveState.MapList[SaveState.MapCounter]);

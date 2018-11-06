@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlSetup : MonoBehaviour
-{
+public class PlayerControlSetup : MonoBehaviour{
     bool animOn;
     bool isRun;
     bool isCrouch;
     bool isJump;
     bool isFall;
+    int PlayerNum;
     float prevy;
 
     public float base_speed = 5f;
@@ -16,9 +16,14 @@ public class PlayerControlSetup : MonoBehaviour
     public Animator animator;
     public Quaternion rotator;
 
+    public void AddPlayerNum(int x)
+    {
+        PlayerNum = x;
+    }
+
     public void Start()
     {
-        base_speed *= (Time.deltaTime);
+        base_speed *= Time.deltaTime;
         Invoke("SetAnimator", .5f);
         prevy = gameObject.transform.position.y;
         isCrouch = false;
@@ -42,30 +47,30 @@ public class PlayerControlSetup : MonoBehaviour
             isJump = false;
         }
         isRun = false;
-        if (InputManager.MainHorizontal(PlayerControlDelegator.playernum) > 0) ;
+        if (InputManager.MainHorizontal(PlayerNum) < - .25f)
         {
             moveToLeft();
             isRun = true;
         }
-        if (InputManager.MainHorizontal(PlayerControlDelegator.playernum) < 0) ;
+        if (InputManager.MainHorizontal(PlayerNum) > .25f)
         {
             moveToRight();
             isRun = true;
         }
-        if (InputManager.Jump(PlayerControlDelegator.playernum))
+        if(InputManager.Jump(PlayerNum))
         {
             playerJump();
         }
-        if (InputManager.Power(PlayerControlDelegator.playernum))
+        if(InputManager.Power(PlayerNum))
         {
             usePowerUp();
         }
-        if (InputManager.Croutch(PlayerControlDelegator.playernum))
+        if(InputManager.Croutch(PlayerNum))
         {
             useAttack();
             isCrouch = true;
         }
-        if (!InputManager.Croutch(PlayerControlDelegator.playernum))
+        if (!InputManager.Croutch(PlayerNum))
         {
             isCrouch = false;
         }
@@ -78,7 +83,7 @@ public class PlayerControlSetup : MonoBehaviour
         prevy = gameObject.transform.position.y;
     }
 
-    virtual public void moveToLeft()
+	virtual public void moveToLeft()
     {
         Vector2 position = this.transform.position;
         position.x -= base_speed;
