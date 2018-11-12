@@ -26,6 +26,7 @@ public class Start : MonoBehaviour {
             string name = "Player" + x;
             foreach(SaveState.PlayerState y in SaveState.Players)
             {
+                Debug.Log("Player run in start");
                 if(y.Name.CompareTo(name) == 0)
                 {
                     array.Add(y);

@@ -14,7 +14,7 @@ public class SaveState : MonoBehaviour
     public static List<string> MapList = new List<string>();
     public static List<PlayerState> Players = new List<PlayerState>();
     public static Dictionary<string, int> PlayerScore = new Dictionary<string, int>();
-    public static bool[] AvailChara = new bool[12];
+    public static bool[] AvailChara = new bool[13];
     public static int MoneyScore = 0;
     public static int MapCounter = 0;
     public static int maxCharaUnlocked = 1;
@@ -24,9 +24,9 @@ public class SaveState : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         GameCntrl.LoadFile();
-        if(AvailChara.Length != 12)
+        if(AvailChara.Length != 13)
         {
-            AvailChara = new bool[12];
+            AvailChara = new bool[13];
         }
         AvailChara[1] = true;
     }
@@ -103,7 +103,7 @@ class GameSaveData
     public Dictionary<string, int> PlayerScore = new Dictionary<string, int>();
     public int MoneyScore = 0;
     public int MapCounter = 0;
-    public bool[] AvailChara = new bool[12];
+    public bool[] AvailChara = new bool[13];
     public int maxCharaUnlocked = 1;
 
 }

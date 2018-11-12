@@ -19,10 +19,6 @@ public class DestoyScript : MonoBehaviour {
             destroyChildren();
             Destroy(this);
         }
-        else
-        {
-            Debug.Log(playerObject.Attack + spritename + "\n" + playerObject.Name);
-        }
 	}
     public void destroyChildren()
     {

@@ -12,14 +12,17 @@ public class Collectible : MonoBehaviour {
     private float stuck = .05f;
     private bool isVisable = false;
     private Vector2 lastPos;
-    public AudioClip ten;
-    public AudioClip twenty;
-    public AudioClip fifty;
+    private AudioClip ten;
+    private AudioClip twenty;
+    private AudioClip fifty;
     private AudioClip audio;
     public Rigidbody2D rb;
     public Collider2D map;
 	// Use this for initialization
 	void Start () {
+        ten = Resources.Load<AudioClip>("Audio/SE/Coin2") as AudioClip;
+        twenty = Resources.Load<AudioClip>("Audio/SE/Coin1") as AudioClip;
+        fifty = Resources.Load<AudioClip>("Audio/SE/Coin3") as AudioClip;
         int temp = (int)Random.Range(0f, 100f);
         if (temp <= 5)
         {
@@ -67,7 +70,7 @@ public class Collectible : MonoBehaviour {
             this.gameObject.GetComponent<Renderer>().enabled = true;
         }
     }
-    void OnCollisionEnter2D(Collision2D colliderInfo)
+    void OnCollisionEnter2D(Collision2D colliderInfo) //Here is the function you need to edit in
     {
         if (colliderInfo.collider.tag == "Player")
         {

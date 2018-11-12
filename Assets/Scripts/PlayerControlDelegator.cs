@@ -24,6 +24,34 @@ public class PlayerControlDelegator : MonoBehaviour {
         {
             gameObject.AddComponent<player_Mage>();
         }
+        else if (type.CompareTo("Elf") == 0)
+        {
+            gameObject.AddComponent<player_Elf>();
+        }
+        else if (type.CompareTo("Priest") == 0)
+        {
+            gameObject.AddComponent<player_Priest>();
+        }
+        else if (type.CompareTo("Veteran") == 0)
+        {
+            gameObject.AddComponent<player_Veteran>();
+        }
+        else if (type.CompareTo("Ninja") == 0)
+        {
+            gameObject.AddComponent<player_Ninja>();
+        }
+        else if (type.CompareTo("Boss Lady") == 0)
+        {
+            gameObject.AddComponent<player_BossLady>();
+        }
+        else if (type.CompareTo("Unicorn") == 0)
+        {
+            gameObject.AddComponent<player_Unicorn>();
+        }
+        else if (type.CompareTo("Queen") == 0)
+        {
+            gameObject.AddComponent<player_Queen>();
+        }
         else
         {
                 Debug.Log("no type selected");

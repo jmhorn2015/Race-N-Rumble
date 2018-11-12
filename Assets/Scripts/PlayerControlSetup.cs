@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlSetup : MonoBehaviour{
+public class PlayerControlSetup : MonoBehaviour {
     bool animOn;
     bool isRun;
     bool isCrouch;
@@ -10,7 +10,11 @@ public class PlayerControlSetup : MonoBehaviour{
     bool isFall;
     int PlayerNum;
     float prevy;
-
+    Vector2 offs;
+    Vector2 sizer;
+    AudioClip audioJump;
+    CapsuleCollider2D cc;
+    float speedCheck;
     public float base_speed = 5f;
     public Vector2 base_jumpHeight = new Vector2(0.0f, 8.0f);
     public Animator animator;
@@ -21,13 +25,28 @@ public class PlayerControlSetup : MonoBehaviour{
         PlayerNum = x;
     }
 
+    //Public void displaypoints(int x){
+    // gameobject.addcompontent<text>
+    // text.text = points
+    //invoke ("destroytext", 2f);
+    //}
+
+    //public void destroytext(){
+    // remove text component in game object;
+    //};
+
     public void Start()
     {
         base_speed *= Time.deltaTime;
+        speedCheck = base_speed;
         Invoke("SetAnimator", .5f);
         prevy = gameObject.transform.position.y;
         isCrouch = false;
         animOn = false;
+        cc = gameObject.GetComponent<CapsuleCollider2D>();
+        offs = cc.offset;
+        sizer = cc.size;
+        audioJump = Resources.Load<AudioClip>("Audio/SE/Jump") as AudioClip;
     }
 
     void SetAnimator()
@@ -59,6 +78,7 @@ public class PlayerControlSetup : MonoBehaviour{
         }
         if(InputManager.Jump(PlayerNum))
         {
+            AudioSource.PlayClipAtPoint(audioJump, transform.position);
             playerJump();
         }
         if(InputManager.Power(PlayerNum))
@@ -67,12 +87,15 @@ public class PlayerControlSetup : MonoBehaviour{
         }
         if(InputManager.Croutch(PlayerNum))
         {
-            useAttack();
             isCrouch = true;
+            base_speed = .5f*speedCheck;
+            crouch();
         }
         if (!InputManager.Croutch(PlayerNum))
         {
             isCrouch = false;
+            base_speed = speedCheck;
+            crouch();
         }
         if (animOn == true)
         {
@@ -117,8 +140,19 @@ public class PlayerControlSetup : MonoBehaviour{
         Debug.Log("A powerup was used.");
     }
 
-    virtual public void useAttack()
+    virtual public void crouch()
     {
-        Debug.Log("Attacking...");
+        if (isCrouch)
+        {
+            offs.y = -1.068107f;
+            sizer.y = 0.833f;
+        }
+        else
+        {
+            offs.y = -.4269078f;
+            sizer.y = 2.116148f;
+        }
+        cc.offset = offs;
+        cc.size = sizer;
     }
 }

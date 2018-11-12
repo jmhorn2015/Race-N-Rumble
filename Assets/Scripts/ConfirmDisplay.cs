@@ -32,19 +32,19 @@ public class ConfirmDisplay : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        if (InputManager.Power(1))
         {
             one = ConfirmFunct(one);
         }
-        if (Input.GetKeyDown("e"))
+        if (InputManager.Power(2))
         {
             two = ConfirmFunct(two);
         }
-        if (Input.GetKeyDown(KeyCode.Keypad9))
+        if (InputManager.Power(3))
         {
             three = ConfirmFunct(three);
         }
-        if (Input.GetKeyDown("y"))
+        if (InputManager.Power(4))
         {
             four = ConfirmFunct(four);
         }
