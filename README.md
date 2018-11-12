@@ -22,7 +22,30 @@ Coding Team:
   Jenna Horn,
   Anudeep Maturi
   
-## Current Version(Alpha 3)
+## Current Version(Alpha 5)
+### New Features
+Currently the game has the following:
+1. Store Menu Implemented and works for all 12 characters.
+1. Music and Sound Effects added for all except powerups. 
+1. Updated Text fonts to look nicer.
+1. Updated Player Select Menu to hold all 12 characters.
+1. Added 5 tilemaps to add to Maps. 
+1. Player Skins will update to the correct player type in Map 1 and 2.
+### Bugs
+1. All bugs are smooshed!
+
+## Previous Version(Alpha 4)
+### New Features
+Currently the game has the following:
+1. Updated Store Menu Implemented and works for 9 characters
+1. Art and animation for 9 characters
+1. All 34 levels are now playable since Croutch has been implementated.
+1. Croutch had been implemented.
+1. Player Skins will update to the correct player type in Map 1 - 5.
+### Bugs
+1. All bugs have been smooshed!
+
+## Previous Version(Alpha 3)
 ### Features
 Currently the game has the following:
 1. Store Menu Implemented and works for 3 characters
