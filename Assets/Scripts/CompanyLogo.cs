@@ -7,8 +7,9 @@ public class CompanyLogo : MonoBehaviour {
     bool inFade = false;
 	// Use this for initialization
 	void Start () {
-        Invoke("toMain", 2f*(1-Time.deltaTime));
-        Invoke("fade",1-Time.deltaTime);
+        float num = 1 - Time.deltaTime;
+        Invoke("toMain", 1.8f*num);
+        Invoke("fade", num);
 	}
 
     void Update()

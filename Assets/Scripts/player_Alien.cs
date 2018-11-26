@@ -37,41 +37,37 @@ public class player_Alien : PlayerControlSetup {
 
     public override void usePowerUp()
     {
-        PlayerArray = GameObject.FindGameObjectsWithTag("Player");
-        if (!CoolDown)
+        powerUp = Resources.Load<AudioClip>("Audio/Powers/Shrink02_Elf") as AudioClip;
+        base.usePowerUp(); 
+        if (isPowerUp)
         {
+            speedCheck /= 2f;
+            PlayerArray = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject x in PlayerArray)
             {
-                if (x.name.CompareTo(gameObject.name) == 1)
+                if (x.name.CompareTo(gameObject.name) != 0)
                 {
-                    PlayerControlSetup y = x.GetComponent<PlayerControlSetup>();
-                    y.enabled = !y.enabled;
+                    x.GetComponent<PlayerControlSetup>().enabled = false;
                     Rigidbody2D z = x.GetComponent<Rigidbody2D>();
-                    z.constraints = RigidbodyConstraints2D.FreezePositionY;
+                    z.constraints = RigidbodyConstraints2D.FreezeAll;
                 }
             }
-            CoolDown = true;
-            Invoke("ReleasePlayers", 3f * (1-Time.deltaTime));
+            Invoke("ReleasePlayers", 5f);
         }
     }
     public void ReleasePlayers()
     {
         Debug.Log("release");
+        speedCheck = orig_speed*2f;
         foreach (GameObject x in PlayerArray)
         {
-            if (x.name.CompareTo(gameObject.name) == 1)
+            if (x.name.CompareTo(gameObject.name) != 0)
             {
-                PlayerControlSetup y = x.GetComponent<PlayerControlSetup>();
-                y.enabled = !y.enabled;
+                x.GetComponent<PlayerControlSetup>().enabled = true;
                 Rigidbody2D z = x.GetComponent<Rigidbody2D>();
                 z.constraints = RigidbodyConstraints2D.None;
                 z.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
         }
-        Invoke("ResetCoolDown", 15f * (1-Time.deltaTime));
-    }
-    public void ResetCoolDown()
-    {
-        CoolDown = false;
     }
 }

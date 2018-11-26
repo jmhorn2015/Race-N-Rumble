@@ -7,20 +7,17 @@ using UnityEngine.UI;
 
 public class ConfirmDisplay : MonoBehaviour {
     private Text confirm;
-    public static bool one, two, three, four;
+    public static bool[] confirmBools;
     public static int counter;
 	// Use this for initialization
 	void Start () {
         confirm = this.gameObject.GetComponent<Text>();
-        one = false;
-        two = false;
-        three = false;
-        four = false;
+        confirmBools = new bool[SaveState.howManyPlayers];
 	}
-	bool ConfirmFunct(bool x)
+	void ConfirmFunct(int x)
     {
-        x = !x;
-        if (x)
+        confirmBools[x] = !confirmBools[x];
+        if (confirmBools[x])
         {
             counter++;
         }
@@ -28,25 +25,28 @@ public class ConfirmDisplay : MonoBehaviour {
         {
             counter--;
         }
-        return x;
     }
 	// Update is called once per frame
 	void Update () {
+        foreach (bool x in confirmBools)
+        {
+            Debug.Log(x);
+        }
         if (InputManager.Power(1))
         {
-            one = ConfirmFunct(one);
+            ConfirmFunct(0);
         }
         if (InputManager.Power(2))
         {
-            two = ConfirmFunct(two);
+            ConfirmFunct(1);
         }
-        if (InputManager.Power(3))
+        if (InputManager.Power(3) & SaveState.howManyPlayers >= 3)
         {
-            three = ConfirmFunct(three);
+            ConfirmFunct(2);
         }
-        if (InputManager.Power(4))
+        if (InputManager.Power(4) & SaveState.howManyPlayers >= 4)
         {
-            four = ConfirmFunct(four);
+            ConfirmFunct(3);
         }
 
         confirm.text = "Ready to go? " + counter + " Players";

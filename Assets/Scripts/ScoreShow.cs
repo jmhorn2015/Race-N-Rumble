@@ -16,5 +16,6 @@ public class ScoreShow : MonoBehaviour {
         display.text = score;
         SaveState.MapList = new List<string>();
         SaveState.MapCounter = 0;
+        SaveState.isQueen = false;
 	}
 }

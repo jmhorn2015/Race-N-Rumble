@@ -15,8 +15,8 @@ public class scr_LiveScoring_v2 : MonoBehaviour
     public int img_width = 100;  //these are for the images that will be used for the players
     public int img_height = 100;
 
-    private int left_margin = 30; //x dimension of left-hand labels
-    private int top_margin = 10; //y dimension of top labels
+    private int left_margin = 300; //x dimension of left-hand labels
+    private int top_margin = 100; //y dimension of top labels
     private int right_margin = 0; //x dimension of right-hand labels
     private int bottom_margin = 0;  //y dimension of bottom labels
 
@@ -25,8 +25,8 @@ public class scr_LiveScoring_v2 : MonoBehaviour
 
     void OnGUI()
     {
-        right_margin = (int)(gameObject.GetComponent<Camera>().scaledPixelWidth) - 130;
-        bottom_margin = (int)(gameObject.GetComponent<Camera>().scaledPixelHeight) - 80;
+        right_margin = (int)(gameObject.GetComponent<Camera>().scaledPixelWidth) - 260;
+        bottom_margin = (int)(gameObject.GetComponent<Camera>().scaledPixelHeight) - 160;
         //create the style for the score 
         GUIStyle myStyle = new GUIStyle();
         myStyle.fontSize = score_fontSize;
@@ -38,7 +38,7 @@ public class scr_LiveScoring_v2 : MonoBehaviour
 
         //setting up rectangles for the player images
         Rect image1 = new Rect(left_margin, top_margin, img_width, img_height);
-        Rect image2 = new Rect(right_margin-30, top_margin, img_width, img_height);
+        Rect image2 = new Rect(right_margin - 30, top_margin, img_width, img_height);
         Rect image3 = new Rect(left_margin, bottom_margin - (img_height + 20), img_width, img_height);
         Rect image4 = new Rect(right_margin - 30, bottom_margin - (img_height + 20), img_width, img_height);
 
@@ -47,13 +47,6 @@ public class scr_LiveScoring_v2 : MonoBehaviour
         GUI.Label(image2, "", imagePlaceholderStyle);
         GUI.Label(image3, "", imagePlaceholderStyle);
         GUI.Label(image4, "", imagePlaceholderStyle);
-
-
-        //add player scores to the gui
-        GUI.Label(new Rect(left_margin, top_margin + img_height + 20, label_width, label_height), "" + SaveState.Players[0].Name + "\n    " + SaveState.PlayerScore[SaveState.Players[0].Name], myStyle);
-        GUI.Label(new Rect(right_margin, top_margin + img_height + 20, label_width, label_height), "" + SaveState.Players[1].Name + "\n    " + SaveState.PlayerScore[SaveState.Players[1].Name], myStyle);
-        GUI.Label(new Rect(left_margin, bottom_margin, label_width, label_height), "" + SaveState.Players[2].Name + "\n    " + SaveState.PlayerScore[SaveState.Players[2].Name], myStyle);
-        GUI.Label(new Rect(right_margin, bottom_margin, label_width, label_height), "" + SaveState.Players[3].Name + "\n    " + SaveState.PlayerScore[SaveState.Players[3].Name], myStyle);
     }
 }
 

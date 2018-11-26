@@ -15,18 +15,29 @@ public class SaveState : MonoBehaviour
     public static List<PlayerState> Players = new List<PlayerState>();
     public static Dictionary<string, int> PlayerScore = new Dictionary<string, int>();
     public static bool[] AvailChara = new bool[13];
+    public static int[] PowerUpLeft = new int[4];
     public static int MoneyScore = 0;
     public static int MapCounter = 0;
     public static int maxCharaUnlocked = 1;
+    public static int howManyPlayers = 4;
+    public static bool isQueen = false;
 
     // Use this for initialization
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
         GameCntrl.LoadFile();
+        if(StartGame.MapMax == 0)
+        {
+            StartGame.MapMax = 10;
+        }
         if(AvailChara.Length != 13)
         {
             AvailChara = new bool[13];
+        }
+        if (howManyPlayers < 2)
+        {
+            howManyPlayers = 4;
         }
         AvailChara[1] = true;
     }
@@ -104,7 +115,10 @@ class GameSaveData
     public int MoneyScore = 0;
     public int MapCounter = 0;
     public bool[] AvailChara = new bool[13];
+    public int[] PowerUpLeft = new int[4];
     public int maxCharaUnlocked = 1;
+    public int howManyPlayers = 4;
+    public int MapMax = 10;
 
 }
 
@@ -129,7 +143,10 @@ public class GameCntrl
         stuff.MoneyScore = SaveState.MoneyScore;
         stuff.MapCounter = SaveState.MapCounter;
         stuff.AvailChara = SaveState.AvailChara;
+        stuff.PowerUpLeft = SaveState.PowerUpLeft;
         stuff.maxCharaUnlocked = SaveState.maxCharaUnlocked;
+        stuff.MapMax = StartGame.MapMax;
+        stuff.howManyPlayers = SaveState.howManyPlayers;
         form.Serialize(fs, stuff);
         fs.Close();
     }
@@ -149,7 +166,10 @@ public class GameCntrl
                 SaveState.MoneyScore = stuff.MoneyScore;
                 SaveState.MapCounter = stuff.MapCounter;
                 SaveState.AvailChara = stuff.AvailChara;
+                SaveState.PowerUpLeft = stuff.PowerUpLeft;
                 SaveState.maxCharaUnlocked = stuff.maxCharaUnlocked;
+                StartGame.MapMax = stuff.MapMax;
+                SaveState.howManyPlayers = stuff.howManyPlayers;
             }
             catch(Exception e)
             {

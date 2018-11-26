@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ButtonManager1 : MonoBehaviour {
@@ -10,16 +11,36 @@ public class ButtonManager1 : MonoBehaviour {
     {
         select = Resources.Load<AudioClip>("Audio/SE/Select") as AudioClip;
     }
-    /* public void MapChanger(int x){     Code for Navya
-     *  add 5 to x
-     *  if x > 35, x = 10
-     *  }
-     *  
-     *  public void AudioOnOff(Audio x){
-     *  if x is playing, pause music on x
-     *  if it is paused, play x
-     *  }
-     */
+    public void MapChanger(GameObject button)
+    {
+        Text displayer = button.GetComponentInChildren<Text>();
+        AudioSource.PlayClipAtPoint(select, new Vector3(0, 0, 0));
+        StartGame.MapMax = StartGame.MapMax + 5;
+        if (StartGame.MapMax > 35 | StartGame.MapMax%5 != 0)
+        {
+            StartGame.MapMax = 10;
+        }
+        displayer.text = "# of Maps: " + StartGame.MapMax.ToString();
+    }
+
+    public void AudioOnOff(GameObject button)
+    {
+        Text displayer = button.GetComponentInChildren<Text>();
+        GameObject y = GameObject.Find("Background Music");
+        AudioSource x = y.GetComponent<AudioSource>();
+        AudioSource.PlayClipAtPoint(select, new Vector3(0, 0, 0));
+        if (x.volume == .1f)
+        {
+            displayer.text = "Music: Off";
+            x.volume = 0;
+        }
+        else if(x.volume == 0)
+        {
+            displayer.text = "Music: On";
+            x.volume = .1f;
+        }
+
+    }
 
     public void NewGameBtn(string NewGameLevel)
     {

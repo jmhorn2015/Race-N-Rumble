@@ -110,7 +110,7 @@ public class CharacterNavigation : MonoBehaviour {
         }
         if (InputManager.Power(charaNum)) // Select edited by Jenna Horn
         {
-            Debug.Log(SaveState.Players.Capacity);
+            Debug.Log(SaveState.howManyPlayers);
             if (!isConfirm)
             {
                 switch (index-1)
@@ -150,6 +150,7 @@ public class CharacterNavigation : MonoBehaviour {
                         break;
                     case 11:
                         SaveState.PlayerSaveState(PName, "Queen", "fire");
+                        SaveState.isQueen = true;
                         break;
                     default:
                         Debug.Log("player not found");
@@ -166,6 +167,7 @@ public class CharacterNavigation : MonoBehaviour {
                 SaveState.Players.RemoveAt(saveIndex);
                 SaveState.PlayerScore.Remove(PName);
                 isConfirm = false;
+                SaveState.isQueen = false;
                 Debug.Log(SaveState.Players.Capacity + "\n" + SaveState.PlayerScore.Count);
             }
         }

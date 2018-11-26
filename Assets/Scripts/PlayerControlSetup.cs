@@ -6,16 +6,27 @@ public class PlayerControlSetup : MonoBehaviour {
     bool animOn;
     bool isRun;
     bool isCrouch;
+    bool crouchCheck;
     bool isJump;
     bool isFall;
-    int PlayerNum;
+    public bool isPowerUp;
+    public bool curse;
+    bool isPower;
+    bool fadeIn;
+    bool fadeOut;
+    public int PlayerNum;
     float prevy;
+    Color powerColor;
     Vector2 offs;
     Vector2 sizer;
     AudioClip audioJump;
+    public AudioClip powerUp;
+    public AudioClip powerActive;
+    public AudioClip powerDown;
     CapsuleCollider2D cc;
-    float speedCheck;
-    public float base_speed = 5f;
+    public float speedCheck;
+    public float orig_speed = 5f;
+    public float base_speed;
     public Vector2 base_jumpHeight = new Vector2(0.0f, 8.0f);
     public Animator animator;
     public Quaternion rotator;
@@ -25,28 +36,24 @@ public class PlayerControlSetup : MonoBehaviour {
         PlayerNum = x;
     }
 
-    //Public void displaypoints(int x){
-    // gameobject.addcompontent<text>
-    // text.text = points
-    //invoke ("destroytext", 2f);
-    //}
-
-    //public void destroytext(){
-    // remove text component in game object;
-    //};
-
     public void Start()
     {
-        base_speed *= Time.deltaTime;
-        speedCheck = base_speed;
+        speedCheck = orig_speed;
+        base_speed = speedCheck*Time.deltaTime;
+        crouchCheck = false;
         Invoke("SetAnimator", .5f);
         prevy = gameObject.transform.position.y;
         isCrouch = false;
+        isPowerUp = false;
+        isPower = false;
         animOn = false;
         cc = gameObject.GetComponent<CapsuleCollider2D>();
         offs = cc.offset;
         sizer = cc.size;
         audioJump = Resources.Load<AudioClip>("Audio/SE/Jump") as AudioClip;
+        powerUp = Resources.Load<AudioClip>("Audio/Powers/PowerUp") as AudioClip;
+        powerDown = Resources.Load<AudioClip>("Audio/Powers/PowerDown") as AudioClip;
+        powerColor = gameObject.GetComponentsInChildren<SpriteRenderer>()[0].color;
     }
 
     void SetAnimator()
@@ -57,6 +64,7 @@ public class PlayerControlSetup : MonoBehaviour {
 
     void Update()
     {
+        base_speed = speedCheck*Time.deltaTime;
         if (gameObject.transform.position.y - prevy > 0.05)
         {
             isJump = true;
@@ -66,6 +74,38 @@ public class PlayerControlSetup : MonoBehaviour {
             isJump = false;
         }
         isRun = false;
+        isPower = false;
+        if (curse)
+        {
+            fadeIn = true;
+            Invoke("startFadeOut", 3f);
+            curse = false;
+        }
+        if (fadeIn == true)
+        {
+            if (powerColor.a < 1)
+            {
+                powerColor.a += .05f;
+            }
+            else
+            {
+                fadeIn = false;
+            }
+            gameObject.GetComponentsInChildren<SpriteRenderer>()[0].color = powerColor;
+        }
+        if (fadeOut == true)
+        {
+            if (powerColor.a > 0)
+            {
+                powerColor.a -= .05f;
+            }
+            else
+            {
+                fadeOut = false;
+                isPowerUp = false;
+            }
+            gameObject.GetComponentsInChildren<SpriteRenderer>()[0].color = powerColor;
+        }
         if (InputManager.MainHorizontal(PlayerNum) < - .25f)
         {
             moveToLeft();
@@ -78,32 +118,42 @@ public class PlayerControlSetup : MonoBehaviour {
         }
         if(InputManager.Jump(PlayerNum))
         {
-            AudioSource.PlayClipAtPoint(audioJump, transform.position);
+            AudioSource.PlayClipAtPoint(audioJump, new Vector2(0f,0f));
             playerJump();
         }
         if(InputManager.Power(PlayerNum))
         {
-            usePowerUp();
+            if (!isPowerUp)
+            {
+                isPower = true;
+                usePowerUp();
+            }
         }
         if(InputManager.Croutch(PlayerNum))
         {
+            Debug.Log("croutch true");
             isCrouch = true;
-            base_speed = .5f*speedCheck;
+            speedCheck = 2.5f;
             crouch();
         }
         if (!InputManager.Croutch(PlayerNum))
         {
             isCrouch = false;
-            base_speed = speedCheck;
             crouch();
+        }
+        if(InputManager.Croutch(PlayerNum) == false & crouchCheck == true)
+        {
+            speedCheck = orig_speed;
         }
         if (animOn == true)
         {
             animator.SetBool("isRunning", isRun);
             animator.SetBool("isCrouching", isCrouch);
             animator.SetBool("isJump", isJump);
+            animator.SetBool("isPower", isPower);
         }
         prevy = gameObject.transform.position.y;
+        crouchCheck = InputManager.Croutch(PlayerNum);
     }
 
 	virtual public void moveToLeft()
@@ -137,7 +187,26 @@ public class PlayerControlSetup : MonoBehaviour {
 
     virtual public void usePowerUp()
     {
-        Debug.Log("A powerup was used.");
+        if (SaveState.PowerUpLeft[PlayerNum - 1] > 0)
+        {
+            AudioSource.PlayClipAtPoint(powerUp, new Vector2(0f, 0f));
+            gameObject.GetComponent<ParticleSystem>().Play();
+            isPowerUp = true;
+            fadeIn = true;
+            Invoke("startFadeOut", 5f);
+            SaveState.PowerUpLeft[PlayerNum - 1]--;
+        }
+        else
+        {
+            Debug.Log("No more Powerups");
+        }
+
+    }
+
+    void startFadeOut()
+    {
+        fadeOut = true;
+        AudioSource.PlayClipAtPoint(powerDown, new Vector2(0f, 0f));
     }
 
     virtual public void crouch()

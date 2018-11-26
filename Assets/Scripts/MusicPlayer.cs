@@ -32,7 +32,6 @@ public class MusicPlayer : MonoBehaviour {
         string current = SceneManager.GetSceneAt(0).name;
         string currcut = current.Substring(0, 3);
         string prevcut = prevScene.Substring(0, 3);
-        Debug.Log(prevcut);
         if (current.CompareTo(prevScene) != 0) {
     
             if(current.CompareTo("Player Select Menu") == 0)

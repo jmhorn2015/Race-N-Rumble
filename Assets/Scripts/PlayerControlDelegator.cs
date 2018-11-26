@@ -51,6 +51,7 @@ public class PlayerControlDelegator : MonoBehaviour {
         else if (type.CompareTo("Queen") == 0)
         {
             gameObject.AddComponent<player_Queen>();
+            SaveState.isQueen = true;
         }
         else
         {

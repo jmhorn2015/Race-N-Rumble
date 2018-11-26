@@ -12,14 +12,20 @@ public class Collectible : MonoBehaviour {
     private float stuck = .05f;
     private bool isVisable = false;
     private Vector2 lastPos;
+    private Vector2 textPos;
+    private Vector2 camDelta;
+    private string pointText;
     private AudioClip ten;
     private AudioClip twenty;
     private AudioClip fifty;
-    private AudioClip audio;
+    public  AudioClip audio;
     public Rigidbody2D rb;
     public Collider2D map;
 	// Use this for initialization
 	void Start () {
+        pointText = "";
+        camDelta.x = GameObject.FindObjectOfType<Camera>().scaledPixelWidth / 19.2f;
+        camDelta.y = GameObject.FindObjectOfType<Camera>().scaledPixelHeight / 10.8f;
         ten = Resources.Load<AudioClip>("Audio/SE/Coin2") as AudioClip;
         twenty = Resources.Load<AudioClip>("Audio/SE/Coin1") as AudioClip;
         fifty = Resources.Load<AudioClip>("Audio/SE/Coin3") as AudioClip;
@@ -52,9 +58,17 @@ public class Collectible : MonoBehaviour {
         lastPos = pos;
         this.gameObject.GetComponent<Renderer>().enabled = false;
     }
+
 	void Update()
     {
+        if (SaveState.isQueen)
+        {
+            audio = Resources.Load<AudioClip>("Audio/SE/FobiddenCoin") as AudioClip;
+        }
         float current = Time.timeSinceLevelLoad;
+        textPos.x = (transform.position.x + 9.6f)*camDelta.x - 8.5f;
+        textPos.y = (-transform.position.y + 5.4f)*camDelta.y - 17f;
+
         if (current >= stuck && lastPos.y - rb.position.y <= .35)
         {
             rb.constraints = RigidbodyConstraints2D.None;
@@ -70,11 +84,23 @@ public class Collectible : MonoBehaviour {
             this.gameObject.GetComponent<Renderer>().enabled = true;
         }
     }
+    void OnGUI()
+    {
+
+        GUIStyle myStyle = new GUIStyle();
+        myStyle.fontSize = 30;
+        myStyle.normal.textColor = Color.black;
+        GUI.Label(new Rect(textPos.x, textPos.y, 100f, 20f), pointText , myStyle);
+    }
+    void DestroyCoin()
+    {
+        Destroy(this.gameObject);
+    }
     void OnCollisionEnter2D(Collision2D colliderInfo) //Here is the function you need to edit in
     {
-        if (colliderInfo.collider.tag == "Player")
+        if (colliderInfo.collider.tag == "Player" & isVisable == true)
         {
-            AudioSource.PlayClipAtPoint(audio, transform.position);
+            AudioSource.PlayClipAtPoint(audio, new Vector2(0f,0f));
             string name = colliderInfo.collider.name;
             string codename = "";
             foreach( KeyValuePair<string, int> x in SaveState.PlayerScore)
@@ -84,11 +110,13 @@ public class Collectible : MonoBehaviour {
                     codename = x.Key;
                 }
             }
-            
+            pointText = point.ToString();
             SaveState.PlayerScore[codename] += point;
             NextMap.currentCount++;
-            Destroy(this.gameObject);
-
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            Invoke("DestroyCoin", 2f);
         }
     }
 }
