@@ -10,10 +10,8 @@ public class player_Dragon : PlayerControlSetup {
     }
     public override void usePowerUp()
     {
-        if (isPowerUp)
+        if (SaveState.PowerUpLeft[PlayerNum - 1] > 0)
         {
-
-            SaveState.PowerUpLeft[PlayerNum - 1]++;
             animator.SetBool("isFly", !isFly);
             animator.SetBool("isPower", false);
             Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
@@ -21,17 +19,17 @@ public class player_Dragon : PlayerControlSetup {
             if (isFly)
             {
                 Debug.Log(isFly);
-                rb.constraints = RigidbodyConstraints2D.FreezePositionY;
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                 gameObject.AddComponent<AudioSource>();
                 powerActive = Resources.Load<AudioClip>("Audio/Powers/WingFlap_Dragon") as AudioClip;
+                gameObject.GetComponent<AudioSource>().loop = true;
                 gameObject.GetComponent<AudioSource>().clip = powerActive;
+                gameObject.GetComponent<AudioSource>().Play();
             }
             else
             {
                 Debug.Log(isFly);
-                rb.constraints = RigidbodyConstraints2D.None;
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
                 Destroy(gameObject.GetComponent<AudioSource>());
             }
         }

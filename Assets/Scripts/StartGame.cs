@@ -38,13 +38,26 @@ public class StartGame : MonoBehaviour {
         ConfirmDisplay.confirmBools = new bool[SaveState.howManyPlayers];
         ConfirmDisplay.counter = 0;
         SaveState.PowerUpLeft = new int[] { 3, 3, 3, 3 };
-        for (int x = MapMin; x<=MapMax; x++)
+        List<int> randomizer = new List<int>();
+        for (int x = MapMin; x <= MapMax; x++)
         {
-            string tempName = "Map " + x;
+            int r = Random.Range(1, 30);
+            if (randomizer.Contains(r))
+            {
+                randomizer.Add(Random.Range(1, 30));
+            }
+            else
+            {
+                randomizer.Add(r);
+            }
+        }
+        for (int x = 0; x<MapMax; x++)
+        {
+            string tempName = "Map " + randomizer[x];
             SaveState.MapList.Add(tempName);
         }
         SaveState.MapList.TrimExcess();
         SceneManager.LoadScene(SaveState.MapList[0]);
-
+        Cursor.visible = false;
     }
 }

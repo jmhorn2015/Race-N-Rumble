@@ -9,12 +9,13 @@ public class player_BossLady : PlayerControlSetup {
     {
         powerDown = Resources.Load<AudioClip>("Audio/Powers/Boost02_Mage") as AudioClip;
         base.usePowerUp();
-        string myName = "Player" + PlayerNum;
-        int currentScore = SaveState.PlayerScore[myName];
+        myName = "Player" + PlayerNum;
+        currentScore = SaveState.PlayerScore[myName];
         if (isPowerUp)
         {
+            Debug.Log(SaveState.PlayerScore.Count);
             currentScore = SaveState.PlayerScore[myName];
-            
+            Invoke("fixScore", 5f);
         }
     }
     void fixScore()
@@ -22,5 +23,6 @@ public class player_BossLady : PlayerControlSetup {
         int scoreAfterPowerUp = SaveState.PlayerScore[myName]; //score after powerup
         int valueToDouble = scoreAfterPowerUp - currentScore; //add double collected value to score
         SaveState.PlayerScore[myName] += valueToDouble; //add the coins collected back again to the score, thereby doubling value
+        DisplayText(SaveState.PlayerScore[myName]);
     }
 }

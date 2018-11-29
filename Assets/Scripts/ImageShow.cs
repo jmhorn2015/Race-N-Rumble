@@ -12,7 +12,10 @@ public class ImageShow : MonoBehaviour {
     public CharacterNavigation navi;
 	// Use this for initialization
 	void Start () {
-        //placeholder.texture = Resources.
+        if (SaveState.howManyPlayers < navi.charaNum)
+        {
+            enabled = false;
+        }
         array = new Sprite[charaNum+1];
         array[0] = gameObject.GetComponent<SpriteRenderer>().sprite;
         for (int x = 1; x<=charaNum; x++)

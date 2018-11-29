@@ -15,24 +15,26 @@ public class player_Ninja : PlayerControlSetup {
         {
             isNinjaPower = true;
             speedCheck = 7f;
+            foreach(GameObject x in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (x.name.CompareTo(gameObject.name) != 0)
+                {
+                    Physics2D.IgnoreCollision(x.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>(), true);
+                }
+            }
             Invoke("EndPU", 5f);
         }
     }
 
     void EndPU()
     {
-        isNinjaPower = false;
-        speedCheck = orig_speed;
-    }
-
-    void OnCollision2DEnter(Collision2D collision)
-    {
-        if (isNinjaPower)
+        foreach (GameObject x in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (collision.gameObject.tag == "Player") //turn off collisions with other players if PowerUp is enabled
+            if (x.name.CompareTo(gameObject.name) != 0)
             {
-                Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), this.GetComponent<Collider>());
+                Physics2D.IgnoreCollision(x.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>(), false);
             }
         }
+        speedCheck = orig_speed;
     }
 }

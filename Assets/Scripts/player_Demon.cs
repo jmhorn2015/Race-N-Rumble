@@ -51,6 +51,8 @@ public class player_Demon : PlayerControlSetup
             //add what you stole to your total
             string myname = "Player" + PlayerNum;
             SaveState.PlayerScore[myname] += closestPlayerScore;
+            closestPlayer.GetComponent<PlayerControlSetup>().DisplayText(SaveState.PlayerScore[closestPlayer.name]);
+            DisplayText(SaveState.PlayerScore[myname]);
             closestPlayerScore = 0;
         }
     }

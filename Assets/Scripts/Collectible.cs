@@ -19,6 +19,7 @@ public class Collectible : MonoBehaviour {
     private AudioClip twenty;
     private AudioClip fifty;
     public  AudioClip audio;
+    Sprite sprite;
     public Rigidbody2D rb;
     public Collider2D map;
 	// Use this for initialization
@@ -34,17 +35,22 @@ public class Collectible : MonoBehaviour {
         {
             point = pointG;
             audio = fifty;
+            sprite = Resources.Load<Sprite>("Display Gem/gem50") as Sprite;
         }
         else if (temp <= 25)
         {
             point = pointS;
             audio = twenty;
+            sprite = Resources.Load<Sprite>("Display Gem/gem20") as Sprite;
         }
         else
         {
             point = pointB;
             audio = ten;
+            sprite = Resources.Load<Sprite>("Display Gem/gem10") as Sprite;
         }
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         rb.constraints = RigidbodyConstraints2D.None;
         Vector2 pos;
         do
@@ -110,8 +116,8 @@ public class Collectible : MonoBehaviour {
                     codename = x.Key;
                 }
             }
-            pointText = point.ToString();
             SaveState.PlayerScore[codename] += point;
+            pointText = SaveState.PlayerScore[codename].ToString();
             NextMap.currentCount++;
             gameObject.GetComponent<Collider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;

@@ -16,11 +16,21 @@ public class ButtonManager1 : MonoBehaviour {
         Text displayer = button.GetComponentInChildren<Text>();
         AudioSource.PlayClipAtPoint(select, new Vector3(0, 0, 0));
         StartGame.MapMax = StartGame.MapMax + 5;
-        if (StartGame.MapMax > 35 | StartGame.MapMax%5 != 0)
+        if (StartGame.MapMax > 30 | StartGame.MapMax%5 != 0)
         {
             StartGame.MapMax = 10;
         }
         displayer.text = "# of Maps: " + StartGame.MapMax.ToString();
+    }
+    public void HowManyPlayers(GameObject button)
+    {
+        Text displayer = button.GetComponentsInChildren<Text>()[0];
+        SaveState.howManyPlayers++;
+        if (SaveState.howManyPlayers > 4)
+        {
+            SaveState.howManyPlayers = 2;
+        }
+        displayer.text = SaveState.howManyPlayers.ToString() + " Plyrs";
     }
 
     public void AudioOnOff(GameObject button)
@@ -79,8 +89,9 @@ public class ButtonManager1 : MonoBehaviour {
         yield return new WaitForSeconds(select.length/4);
         if (isContinue & (SaveState.MapList.Capacity > 0 & SaveState.MapCounter > -1))
         {
-            SceneManager.LoadScene(SaveState.MapList[SaveState.MapCounter]);
+            Cursor.visible = false;
             isContinue = false;
+            SceneManager.LoadScene(SaveState.MapList[SaveState.MapCounter]);
         }
         else
         {
@@ -108,10 +119,30 @@ public class ButtonManager1 : MonoBehaviour {
             SaveState.Players.Clear();
             SaveState.PlayerScore.Clear();
             isContinue = false;
+            SceneManager.LoadScene("Player Select Menu");
         }
         else if (x.CompareTo("Points") == 0)
         {
             SaveState.MoneyScore = 0;
+        }
+        else if (x.CompareTo("Continue") == 0)
+        {
+            foreach (GameObject y in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                y.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+                y.GetComponentInChildren<Animator>().enabled = true;
+            }
+            Cursor.visible = false;
+            SceneManager.UnloadScene("Pause Menu");
+        }
+        else if (x.CompareTo("End Game") == 0)
+        {
+            SaveState.MapList.Clear();
+            SaveState.MapCounter = 0;
+            SaveState.Players.Clear();
+            SaveState.PlayerScore.Clear();
+            isContinue = false;
+            SceneManager.LoadScene("Title Menu");
         }
         else
         {

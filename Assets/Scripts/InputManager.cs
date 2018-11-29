@@ -35,6 +35,11 @@ public class InputManager   // Does not inherit monobehavior since the input can
         bool c = Input.GetButtonDown("K_Power" + x);
         return a | c;
     }
-
+    public static bool Pause(int x)
+    {
+        bool a = Input.GetButtonDown("Xbox_Pause" + x); //Xbox 360 Controls
+        bool c = Input.GetButtonDown("K_Pause");
+        return a | c;
+    }
 
 }

@@ -6,6 +6,10 @@ public class PlayerControlDelegator : MonoBehaviour {
     public int PlayNum;
     // Use this for initialization
     void Start() {
+        if (SaveState.howManyPlayers < PlayNum)
+        {
+            Destroy(gameObject);
+        }
         string type = SaveState.Players[PlayNum - 1].Attack;
         if (type.CompareTo("Fighter") == 0) {
             gameObject.AddComponent<player_Fighter>();

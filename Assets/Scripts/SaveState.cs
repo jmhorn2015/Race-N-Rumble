@@ -21,6 +21,7 @@ public class SaveState : MonoBehaviour
     public static int maxCharaUnlocked = 1;
     public static int howManyPlayers = 4;
     public static bool isQueen = false;
+    public static bool isPause = false;
 
     // Use this for initialization
     void Start()
@@ -41,7 +42,6 @@ public class SaveState : MonoBehaviour
         }
         AvailChara[1] = true;
     }
-
     void OnDestroy()
     {
        GameCntrl.SavetoFile();
@@ -60,13 +60,15 @@ public class SaveState : MonoBehaviour
     public static string DisplayScoreofPlayer() //edited by Jenna Horn
     {
         MapCounter = 0;
+        int originalCount = PlayerScore.Count;
         string results = "";
-        for (int x = 0; x < Players.Capacity; x++)
+        for (int x = 0; x < originalCount; x++)
         {
             int NextScore = 0;
             string NextScoreName = null;
             foreach (KeyValuePair<string, int> ps in PlayerScore)
             {
+                Debug.Log(ps.Value);
                 if (ps.Value > NextScore)
                 {
                     NextScore = ps.Value;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControlSetup : MonoBehaviour {
     bool animOn;
@@ -30,6 +31,9 @@ public class PlayerControlSetup : MonoBehaviour {
     public Vector2 base_jumpHeight = new Vector2(0.0f, 8.0f);
     public Animator animator;
     public Quaternion rotator;
+    private Vector2 textPos;
+    private Vector2 camDelta;
+    string playerPoint;
 
     public void AddPlayerNum(int x)
     {
@@ -38,6 +42,8 @@ public class PlayerControlSetup : MonoBehaviour {
 
     public void Start()
     {
+        playerPoint = "";
+        string Pname = gameObject.name;
         speedCheck = orig_speed;
         base_speed = speedCheck*Time.deltaTime;
         crouchCheck = false;
@@ -54,6 +60,8 @@ public class PlayerControlSetup : MonoBehaviour {
         powerUp = Resources.Load<AudioClip>("Audio/Powers/PowerUp") as AudioClip;
         powerDown = Resources.Load<AudioClip>("Audio/Powers/PowerDown") as AudioClip;
         powerColor = gameObject.GetComponentsInChildren<SpriteRenderer>()[0].color;
+        camDelta.x = GameObject.FindObjectOfType<Camera>().scaledPixelWidth / 19.2f;
+        camDelta.y = GameObject.FindObjectOfType<Camera>().scaledPixelHeight / 10.8f;
     }
 
     void SetAnimator()
@@ -61,9 +69,29 @@ public class PlayerControlSetup : MonoBehaviour {
         animator = gameObject.GetComponentsInChildren<Animator>()[0];
         animOn = true;
     }
+    void OnGUI()
+    {
+
+        GUIStyle myStyle = new GUIStyle();
+        myStyle.fontSize = 30;
+        myStyle.normal.textColor = Color.black;
+        GUI.Label(new Rect(textPos.x, textPos.y, 100f, 20f), playerPoint, myStyle);
+    }
+    public void DisplayText(int x)
+    {
+        playerPoint = x.ToString();
+        Invoke("eraseText", 2f);
+    }
+
+    void eraseText()
+    {
+        playerPoint = "";
+    }
 
     void Update()
     {
+        textPos.x = (transform.position.x + 9.6f) * camDelta.x - 8.5f;
+        textPos.y = ((-transform.position.y + 5.4f) * camDelta.y - 17f) - 50f;
         base_speed = speedCheck*Time.deltaTime;
         if (gameObject.transform.position.y - prevy > 0.05)
         {
@@ -145,6 +173,21 @@ public class PlayerControlSetup : MonoBehaviour {
         {
             speedCheck = orig_speed;
         }
+        if (InputManager.Pause(PlayerNum))
+        {
+            SaveState.isPause = !SaveState.isPause;
+            if (SaveState.isPause & SceneManager.sceneCount < 2)
+            {
+                SceneManager.LoadScene("Pause Menu", LoadSceneMode.Additive);
+                Invoke("ActivateScene", .1f);
+                Cursor.visible = true;
+                foreach (GameObject y in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    y.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    y.GetComponentInChildren<Animator>().enabled = false;
+                }
+            }
+        }
         if (animOn == true)
         {
             animator.SetBool("isRunning", isRun);
@@ -166,6 +209,11 @@ public class PlayerControlSetup : MonoBehaviour {
             rotator = new Quaternion(0f, 0f, 0f, 0f);
             this.transform.rotation = rotator;
         }
+    }
+
+    void ActivateScene()
+    {
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Pause Menu"));
     }
 
     virtual public void moveToRight()

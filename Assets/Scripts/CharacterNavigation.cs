@@ -20,6 +20,10 @@ public class CharacterNavigation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         PName = gameObject.name;
+        if (SaveState.howManyPlayers < charaNum)
+        {
+            Destroy(this.gameObject);
+        }
         SaveState.PlayerScore = new Dictionary<string, int>();
     }
 	public int GetIndex()

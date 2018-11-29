@@ -18,6 +18,7 @@ public class player_Priest : PlayerControlSetup
                 if (othername.CompareTo(myName) != 0)
                     SaveState.PlayerScore[othername] -= (int)(SaveState.PlayerScore[othername] * 0.1); //subtract 10% of their coin value
                     players[x].GetComponent<PlayerControlSetup>().curse = true;
+                    players[x].GetComponent<PlayerControlSetup>().DisplayText(SaveState.PlayerScore[othername]);
             }
         }
     }

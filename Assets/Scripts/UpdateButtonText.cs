@@ -4,22 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UpdateButtonText : MonoBehaviour {
-    public bool mapOrAudio;
+    public bool isMap;
+    public bool isAudio;
+    public bool isPlayer;
     AudioSource music;
 	void Start () {
         music = GameObject.Find("Background Music").GetComponent<AudioSource>();
         Text displayer = this.GetComponentsInChildren<Text>()[0];
-        if (mapOrAudio)
+        if (isMap)
         {
             displayer.text = "# of Maps: " + StartGame.MapMax.ToString();
         }
-        else if(!mapOrAudio & music.volume == .1f)
+        else if(isAudio & music.volume == .1f)
         {
             displayer.text = "Music: On";
         }
-        else
+        else if(isAudio)
         {
             displayer.text = "Music: Off";
+        }
+        else if (isPlayer)
+        {
+            displayer.text = SaveState.howManyPlayers.ToString() + " Plyrs";
         }
     }
 
